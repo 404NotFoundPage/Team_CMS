@@ -96,7 +96,7 @@
                 <el-form-item label="商品名称" style=" margin-top: 20px;">
                   <el-input v-model="addData.pro_name"></el-input>
                 </el-form-item>
-                <el-form-item label="商品规格" >
+                <el-form-item label="商品规格" style=" margin-top: 20px;">
                   <el-input v-model="addData.pro_size"></el-input>
                 </el-form-item>
                 <el-form-item label="供货量" >
@@ -106,12 +106,12 @@
                    <el-input v-model="addData.pro_discount"></el-input>
                    </el-form-item>
                 <el-form-item label="成本价格"  >
-                   <el-input v-model="addData.pro_price"></el-input>
+                   <el-input v-model="addData.pro_price" style="width:202px;margin-left:10px;"></el-input>
                    </el-form-item>
-                <el-form-item label="创建时间" required>
+                <el-form-item label="创建时间">
                   <el-col :span="21">
                     <el-form-item>
-                      <el-date-picker type="date"  v-model="addData.pro_storetime" placeholder="选择日期" style="margin-left:10px;width:200px;"></el-date-picker>
+                      <el-date-picker type="date"  v-model="addData.pro_storetime" placeholder="选择日期" style="width:202px;"></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-form-item>
