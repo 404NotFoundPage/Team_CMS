@@ -58,7 +58,7 @@
 		  </div>
 		</el-dialog>
 
-		<el-dialog title="添加" :visible.sync="dialogFormVisibl">
+		<el-dialog title="编辑" :visible.sync="dialogFormVisibl">
 		  <el-form :model="form">
 			<el-form-item label="商品编号" :label-width="formLabelWidth">
 			  <el-select v-model="form1.region" placeholder="请选择商品编号">

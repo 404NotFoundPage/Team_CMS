@@ -132,4 +132,20 @@
   .contenttag .el-tabs__content{
     margin-left: -120px;
   }
+  .contentanliadd .el-form-item__content{
+    text-align: left;
+  }
+.contentanliadd .el-dialog{
+  width: 45%;
+}
+.contentanliadd .el-textarea{
+    width: 70%;
+  }
+ .contentuseredit .el-form-item__content{
+   text-align: left;
+ }
+  .el-table__header-wrapper thead th{
+    background-color: #4f9acd;
+    color: white;
+  }
 </style>

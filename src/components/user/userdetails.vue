@@ -10,7 +10,7 @@
           <div id="lefttop">
             <div id="userinfo">
                 <h4>{{user_name}}</h4>
-                <img src="./../../../static/user1.jpeg" alt="">
+                <img :src="'./../../../static/'+user_pic">
             </div>
             <div id="useraddress">
                 <ul>
@@ -107,6 +107,7 @@ export default {
         orderlist:[],//订单信息
         user_name:'',//会员姓名
         user_tel:'',//会员电话
+        user_pic:'', //会员图片
         totolnum:'',//订单总数
         current:1,//当前页码
         commentlist:[], //用户评论,
@@ -143,6 +144,7 @@ methods: {
         this.$axios.post('http://localhost:9999/userdetails.do',postData)
         .then(function(res){
             _this.list=res.data;
+            _this.user_pic=res.data[0].user_pic
             _this.user_name=res.data[0].user_name
             _this.user_tel=res.data[0].user_tel;
         }).catch(function(err){
@@ -172,7 +174,7 @@ methods: {
         })
         this.$axios.post('http://localhost:9999/userordernumber.do',postData)
         .then(function(res){
-            // console.log(res.data)
+            //console.log(res.data)
             _this.totolnum=res.data.items[0].num;
         }).catch(function(err){
             console.log(err)
@@ -288,10 +290,14 @@ methods: {
     border-radius: 5px;
     font-size: 16px;
 }
+template{
+    position: relative;
+}
 #userdetails{
+  margin-left: 200px;
+  margin-top: 0px;
   height:590px;
   width: 1149px;
-  margin-left:200px;
 }
 #content{
     background-color: white;

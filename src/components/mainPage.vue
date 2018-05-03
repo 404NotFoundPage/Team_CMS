@@ -6,28 +6,28 @@
       </div>
       <ul>
         <li>
-          <router-link to="/user">
+          <router-link to="/index/user">
           <span class="i"> &#xe663;</span><p>会员管理</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/productManage">
+          <router-link to="/index/productManage">
           <span class="i">&#xe656;</span><p>商品管理</p>
           </router-link>
         </li>
 
         <li>
-          <router-link to="/dingdanguanli">
+          <router-link to="/index/dingdanguanli">
           <span class="i">&#xe6bd;</span><p>订单管理</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/producttype">
+          <router-link to="/index/producttype">
           <span class="i">&#xe605;</span><p>商品类型管理</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/ContentManagement">
+          <router-link to="/index/ContentManagement">
             <span class="i">&#xe627;</span><p>内容管理</p>
           </router-link>
         </li>

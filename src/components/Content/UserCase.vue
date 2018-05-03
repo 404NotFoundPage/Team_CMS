@@ -38,7 +38,7 @@
 		</div>
 
 
-		<el-dialog title="编辑" :visible.sync="dialogFormVisible">
+		<el-dialog title="编辑" :visible.sync="dialogFormVisible" class="contentuseredit">
 		  <el-form :model="form">
 			<el-form-item label="案例编号" :label-width="formLabelWidth">
 			  <el-select @change='open' v-model="form.cass_id" placeholder="">
@@ -86,7 +86,7 @@
 		</el-dialog>
 
 
-		<el-dialog title="添加" :visible.sync="dialogFormVisibl">
+		<el-dialog title="添加" :visible.sync="dialogFormVisibl" class="contentanliadd">
 		  <el-form :model="form1">
 			<el-form-item label="案例编号" :label-width="formLabelWidth">
 				<div class='xz'>
@@ -116,8 +116,6 @@
 			  </el-input>
 			</el-form-item>
 			<el-form-item label="案例标题" :label-width="formLabelWidth">
-
-
 				<el-upload
 				  action="http://localhost:8080/imgurl"
 				  list-type="picture-card"
@@ -128,8 +126,6 @@
 				<el-dialog :visible.sync="dialogVisible">
 				  <img width="100%" :src="dialogImageUrl" alt="">
 				</el-dialog>
-
-
 			</el-form-item>
 			<el-form-item label="上架状态" :label-width="formLabelWidth">
 			  <el-select v-model="form1.cass_condition" placeholder="请选择是，否">

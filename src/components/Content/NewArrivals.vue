@@ -23,7 +23,7 @@
 				</el-table-column>
 			  </el-table>
 		</div>
-	<el-dialog title="添加" :visible.sync="dialogFormVisible">
+	<el-dialog title="编辑" :visible.sync="dialogFormVisible">
 		  <el-form :model="form">
 			<el-form-item label="商品编号"   :label-width="formLabelWidth">
 			  <el-select v-model="form.region"  placeholder="请选择商品编号">

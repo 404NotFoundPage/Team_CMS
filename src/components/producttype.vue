@@ -512,15 +512,13 @@ export default {
     position: absolute;
     top:100px;
     left: 350px;
-    border:1px solid rebeccapurple;
 }
 .zhezhao{
     width: 1090px;
     background-color:rgba(0, 0, 0, 0.5);
     height: 550px;
     position: absolute;
-    top: 0px;
-    /* top:90px; */
+     top:90px;
     z-index: 999;
 }
 .baocun{
