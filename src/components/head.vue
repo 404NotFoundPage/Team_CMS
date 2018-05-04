@@ -151,6 +151,7 @@
     width: 40px;
     height: 40px;
     margin-top: 15px;
+    border-radius: 50%;
   }
   .admin li:nth-of-type(5)>span {
     font-family: iconfont;

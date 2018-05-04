@@ -2,7 +2,7 @@
 <template>
   <div>
     <!-- echart表格 -->
-    <div id="myChart1" :style="{width:'360px',height:'360px'}"></div>
+    <div id="myChart1" :style="{width:'360px',height:'345px'}"></div>
   </div>
 </template>
  

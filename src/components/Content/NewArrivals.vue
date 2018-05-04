@@ -52,16 +52,14 @@
 			</el-form-item>
 		  </el-form>
 		  <div slot="footer" class="dialog-footer">
-			<el-button @click="xianshi = false">取 消</el-button>
-			<el-button type="primary" @click="xianshi = false;open3()">确 定</el-button>
+			<el-button @click="dialogFormVisible = false">取 消</el-button>
+			<el-button type="primary" @click="dialogFormVisible = false;open3()">确 定</el-button>
 		  </div>
 		</el-dialog>
-		
+
 		<!-- 添加 -->
 		<el-dialog title="收货地址" :visible.sync="xianshi">
 		  <el-form :model="form1">
-		  
-		  
 			<div class='divleft'>
 				<el-form-item label="商品名称" :label-width="formLabelWidth">
 				  <el-input v-model="form1.name" auto-complete="off"></el-input>
@@ -114,7 +112,6 @@
 				</el-form-item>
 			</div>
 			<div class='divdic'>
-				
 				<form action="" id='form1' enctype="multipart/form-data" method="post">
 				   <span class='uploadspan'>添加图片</span>
 					<span class='wocalie'>
@@ -123,20 +120,8 @@
 					</span>
 					<button  type='button' @click='formdata'  class='uploadbutton'>上传</button>
 				</form>
-				
 			</div>
-				
-			
-			
-			
-			
-			
-			
-			
-			
 		  </el-form>
-		  
-		  
 		  <div slot="footer" class="dialog-footer">
 			<el-button type="primary" @click="xianshi = false;qingqiu()">创建</el-button>
 			<el-button @click="xianshi = false">取 消</el-button>
@@ -164,7 +149,7 @@ export default{
 			},
 			formLabelWidth: '120px',
 			Obtainshop:[],
-			
+
 			// 添加 模块
 			xianshi: false,
 			dialogVisible: false,
@@ -248,19 +233,19 @@ export default{
 		})
 	 },
 	 qingqiu:function(){
-		
+
 		console.log(this.form1)
-	 
+
 		let shijian=this.form1.value1
 		  shijian=shijian.getFullYear()+"-"+ (shijian.getMonth()+1)+"-"+shijian.getDate()
 		  console.log(shijian)
 		let postdata=qs.stringify({
-		 pro_type_id:this.form1.splx,		
-		 pro_name:this.form1.name,         
-		 pro_amount:this.form1.gonghuoliang,		
-		 pro_price: this.form1.jiage,			
-		 pro_discount: this.form1.spzk,				
-		 pro_size:this.form1.spgg,							
+		 pro_type_id:this.form1.splx,
+		 pro_name:this.form1.name,
+		 pro_amount:this.form1.gonghuoliang,
+		 pro_price: this.form1.jiage,
+		 pro_discount: this.form1.spzk,
+		 pro_size:this.form1.spgg,
 		 pro_storetime:shijian,
 		 pro_id:""
 		})
@@ -270,8 +255,8 @@ export default{
 		}).catch(function(err){
 			console.log(err)
 		})
-		
-	 
+
+
 	 },
 	 handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -301,7 +286,7 @@ export default{
 					xmlHttp.send(formData);
 		console.log("123")
 	   }
-	
+
 	}
 }
 </script>
@@ -311,7 +296,7 @@ export default{
 	}
 	.divleft{
 		float: left;
-		width: 300px; 
+		width: 300px;
 	}
 	.divdic{
 		clear: both;
@@ -321,7 +306,7 @@ export default{
 		padding-left: 50px;
 		padding-right: 10px;
 	}
-	
+
 	.uploadbutton{
 		border: none;
 		outline: none;
@@ -333,7 +318,7 @@ export default{
 		color: white;
 		transition: all .2s linear;
 		margin-left: 200px;
-	} 
+	}
 	.uploadbutton:hover{
 		background-color: #66b1ff;
 	}
@@ -359,7 +344,7 @@ export default{
 		height: 40px;
 		color: white;
 		text-align: center;
-		line-height: 40px; 
+		line-height: 40px;
 		transition: all .2s linear;
 	}
 </style>

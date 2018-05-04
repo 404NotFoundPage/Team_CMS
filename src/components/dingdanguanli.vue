@@ -448,7 +448,7 @@
         if (this.searchInput != '') {
           let self = this;
           self.loading = true;
-          let content = parseInt(this.searchInput);
+          let content = parseInt(this.searchInput)-1;
           let postData = qs.stringify({
             order_id: content
           })

@@ -26,14 +26,14 @@ export default {
             title: { text: '数量' },
             tooltip: {},
             xAxis: {
-                data: ['2015年','2016年','2017年','2018年']
+                data: ['2017年12月','2018年01月','2018年02月','2018年03月','2018年04月']
             },
             yAxis: {},
             series: [
             {
               name:'数量',
               type:'line',
-              data:[20,80,110,98,120],
+              data:[10,45,20,38,55,72,32,46,88,35,44,56,24],
               smooth:true,
               hoverAnimation:false,
               symbol:'rect',
@@ -62,11 +62,12 @@ export default {
 </script>
 <style scoped>
 #oLine{
-  width:300px;
-  height: 300px;
+  width:700px;
+  height: 328px;
 }
 h3{
-  margin-top:10px;
-  width: 300px;
+  /* margin-top:10px; */
+  font-family: 微软雅黑;
+  width: 700px;
 }
 </style>
