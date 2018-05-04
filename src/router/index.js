@@ -19,7 +19,7 @@ import dingdanguanli from '@/components/dingdanguanli'
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+  mode: 'history',
   // linkActiveClass:"active",
   routes: [
     {
@@ -28,85 +28,92 @@ export default new Router({
       component: login,
     },
     {
-    path: '/index',
-    components: {
-      head: head,
-      left: left,
-      body:mainpage
-    },
-      children:[
+      path: '/index',
+      components: {
+        head: head,
+        left: left,
+        body: mainpage
+      },
+      children: [
         {
-          path:'/index',
-          components:{
-            body:mainpage
+          path: '/index',
+          components: {
+            body: mainpage
           }
         },
-      {
-        path: 'user',
-        name: 'user',
-        components: {
-          body: user
-        }
-      },
-      {
-        path:'userdetail/:user_id',
-        name:'userdetail',
-        components:{
-          body:userdetail
-        }
-      },
-      {
-        path:'producttype',//商品类型
-        name:'producttype',
-        components: {
-          body: producttype
-        }
-      },
-      {
-        path:'productManage',
-        name:'productManage',
-        components: {
-          body: productManage
-        }
-      },
-      {
-        path: 'dingdanguanli',
-        name: 'dingdanguanli',
-        components: {
-          body: dingdanguanli
-        }
-      },
-      {
-        path: 'ContentManagement',
-        name: 'ContentManagement',
-        components: {
-          body: ContentManagement
-        },
-        children:[
-          {
-            path: 'RecomForBur',
-            name: 'RecomForBur',
-            components: {
-              body:RecomForBur
-            }
-          },
-          {
-            path: 'NewArrivals',
-            name: 'NewArrivals',
-            components: {
-              body:NewArrivals
-            }
-          },
-          {
-            path: 'UserCase',
-            name: 'UserCase',
-            components: {
-              body:UserCase
-            }
+        {
+          path: 'user',
+          name: 'user',
+          components: {
+            body: user
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          path: 'userdetail/:user_id',
+          name: 'userdetail',
+          components: {
+            body: userdetail
+          }
+        },
+        {
+          path: 'producttype',//商品类型
+          name: 'producttype',
+          components: {
+            body: producttype
+          }
+        },
+        {
+          path: 'productManage',
+          name: 'productManage',
+          components: {
+            body: productManage
+          }
+        },
+        {
+          path: 'productContent/:pro_id',
+          name: 'productContent',
+          components: {
+            body: productContent
+          }
+        },
+        {
+          path: 'dingdanguanli',
+          name: 'dingdanguanli',
+          components: {
+            body: dingdanguanli
+          }
+        },
+        {
+          path: 'ContentManagement',
+          name: 'ContentManagement',
+          components: {
+            body: ContentManagement
+          },
+          children: [
+            {
+              path: 'RecomForBur',
+              name: 'RecomForBur',
+              components: {
+                body: RecomForBur
+              }
+            },
+            {
+              path: 'NewArrivals',
+              name: 'NewArrivals',
+              components: {
+                body: NewArrivals
+              }
+            },
+            {
+              path: 'UserCase',
+              name: 'UserCase',
+              components: {
+                body: UserCase
+              }
+            }
+          ]
+        }
+      ]
+    }
   ]
 })

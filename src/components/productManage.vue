@@ -27,28 +27,17 @@
             <div class="tianjia" @click="tankuang()">
              <i class="el-icon-circle-plus-outline" ></i> 添加
              </div>
-             <!-- 编辑按钮 -->
-             <div class="bianji"  @click="editproduct()">
-             <i class="el-icon-edit-outline" ></i> 编辑
-             </div>
              <!-- 删除 -->
-             <div class="delete" @click="Delete()"> <i class="el-icon-edit-outline" ></i>删除</div>
+             <div class="delete" @click="Delete()"><i class="el-icon-edit-outline" ></i>删除</div>
              <!-- 表格部分 -->
-            <el-table :data="list.items"  stripe border style="width:100%;margin-left:20px;font-size:14px;margin-top:60px" >
-              <!-- <el-table-column  type="selection"  width="37" >
-              </el-table-column> -->
-              <el-table-column width="37px">
-              <template slot-scope="scope">
-                  <el-checkbox @change="changeCheck(scope.$index, scope.row)" v-model="checkedlist[scope.$index].checked"></el-checkbox>
-              </template>
-              </el-table-column>
+            <el-table :data="list.items"  stripe border style="width:100%;margin-left:20px;font-size:14px;margin-top:50px" >
               <el-table-column  label="编号"  width="50" >
               <template slot-scope="scope">{{scope.row.pro_id}}</template>
               </el-table-column>
               <el-table-column   label="商品名称"  width="120px" >
               <template slot-scope="scope">{{scope.row.pro_name}}</template>
               </el-table-column>
-              <el-table-column  label="图片" width="200" >
+              <el-table-column  label="图片" width="165" >
               <template slot-scope="scope">{{scope.row.pro_img_url}}</template>
               </el-table-column>
               <el-table-column   label="爆款"  width="50" >
@@ -57,10 +46,10 @@
               <el-table-column  label="新旧"  width="50" >
               <template slot-scope="scope">{{scope.row.pro_new}}</template>
               </el-table-column>
-              <el-table-column   label="规格" width="90" >
+              <el-table-column   label="规格" width="70" >
               <template slot-scope="scope">{{scope.row.pro_size}}</template>
               </el-table-column>
-              <el-table-column   label="供货量"  width="74">
+              <el-table-column   label="供货量"  width="65">
               <template slot-scope="scope">{{scope.row.pro_amount}}</template>
               </el-table-column>
               <el-table-column label="折扣" width="60">
@@ -77,6 +66,14 @@
               </el-table-column>
               <el-table-column label="状态" width="64" >
               <template slot-scope="scope">{{scope.row.pro_condition}}</template>
+              </el-table-column>
+              <el-table-column
+                label="操作"
+                width="100">
+                <template slot-scope="scope">
+                  <el-button @click="chakan(scope.row)" type="text" size="small">查看</el-button>
+                  <el-button @click="editproduct(scope.$index,scope.row)" type="text" size="small">编辑</el-button>
+                </template>
               </el-table-column>
             </el-table>
             <!-- 分页 -->
@@ -164,25 +161,25 @@
     <!-- 编辑按钮部分 -->
       <div id="beijing2" v-show="isShow2">
         <div id="tjbd2">
-          <el-form :inline="true" v-model="currentRow" label-width="100px" class="demo-ruleForm">
+          <el-form :inline="true" v-model="editData" label-width="100px" class="demo-ruleForm">
                 <div style=" margin-top: 20px;">编辑商品</div>
                 <el-form-item label="商品名称" style=" margin-top: 20px;">
-                  <el-input v-model="currentRow.pro_name"></el-input>
+                  <el-input v-model="editData.pro_name"></el-input>
                 </el-form-item>
                 <el-form-item label="商品规格" style="margin-top: 20px;">
-                  <el-input v-model="currentRow.pro_size" ></el-input>
+                  <el-input v-model="editData.pro_size" ></el-input>
                 </el-form-item>
                 <el-form-item label="供货量">
-                  <el-input v-model="currentRow.pro_amount"></el-input>
+                  <el-input v-model="editData.pro_amount"></el-input>
                 </el-form-item>
                  <el-form-item label="折扣">
-                   <el-input v-model="currentRow.pro_discount"></el-input>
+                   <el-input v-model="editData.pro_discount"></el-input>
                    </el-form-item>
                 <el-form-item label="成本价格">
-                   <el-input v-model="currentRow.pro_price"></el-input>
+                   <el-input v-model="editData.pro_price"></el-input>
                    </el-form-item>
                 <el-form-item label="成交量">
-                   <el-input v-model="currentRow.pro_deal_amount"></el-input>
+                   <el-input v-model="editData.pro_deal_amount"></el-input>
                    </el-form-item>
                 <el-form-item label="创建时间">
                   <el-col :span="21">
@@ -279,18 +276,21 @@ export default {
       this.getData()
     },
     methods: {
+      chakan(obj){   //查看
+        console.log(obj);
+      },
       reset(){  //重置搜索框
         this.proCondition='';
         this.proName='';
       },
-      changeCheck(index,row){//判断复选框checkbox是否处于选中状态
-        if(this.checkboxchecked[index]==false){
-            this.checkboxchecked[index]=true;
-            this.currentRow=row;
-            this.currentRowIndex=index;
-        }else{
-            this.checkboxchecked[index]=false;
-        }
+      editproduct(index,row){//编辑
+        this.isShow2=true;
+        console.log(row);
+        this.editData=row;
+
+      },
+      edit(){
+        this.isShow2=false;
       },
       handleCurrentChange(val){
         this.current=val;
@@ -307,9 +307,9 @@ export default {
         var _this=this;
         this.$axios.post('http://localhost:9999/getProductNum.do')
         .then(function(res){
-          console.log(res.data.items[0])
+//          console.log(res.data.items[0])
             _this.totalnum=res.data.items[0];
-            console.log(_this.totalnum)
+//            console.log(_this.totalnum)
         }).catch(function(err){
             console.log(err)
         })
@@ -463,23 +463,6 @@ export default {
             this.isShow=true;
         }
       },
-      editproduct:function(){//修改商品类型
-        var j=0;
-        for(var i=0;i<this.checkboxchecked.length;i++){
-          if(this.checkboxchecked[i]==true){
-            j++;
-          }
-        }
-        if(j==0){
-          let str1="请选择需要编辑的数据"
-          this.alert(str1)
-        }else if(j==1){
-          this.edit()
-        }else if(j>1){
-          let str2="选择数据过多，请选择一条数据"
-          this.alert(str2)
-        }
-      },
       alert:function(str) {
           let _this=this;
           this.$alert(str, '提示', {
@@ -491,13 +474,6 @@ export default {
               });
               }
           })
-      },
-      edit(){//编辑弹框的显示
-        if(this.isShow2){
-            this.isShow2=false;
-        }else{
-            this.isShow2=true;
-        }
       },
       update(){//修改商品信息
           let time=this.formatDate(new Date(this.currentRow.pro_storetime))
@@ -556,6 +532,22 @@ export default {
 template{
   position:relative;
 }
+.chakan{
+  width: 90px;
+  height: 34px;
+  background-color: #4f9acd;
+  margin-left: 320px;
+  color: white;
+  line-height: 34px;
+  font-size: 12px;
+  float: left;
+  margin-top: -6px;
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+.chakan:hover{
+  background-color:#FF9600;
+}
 .div1{
   position: absolute;
   width:1090px ;
@@ -602,6 +594,8 @@ template{
   top: 6px;
   left: 375px;
   font-size: 12px;
+  transition: all 0.1s linear;
+  cursor: pointer;
 }
 .anniu2{
   width: 90px;
@@ -614,6 +608,8 @@ template{
   top: 6px;
   left: 470px;
   font-size: 12px;
+  transition: all 0.1s linear;
+  cursor: pointer;
 }
 .anniu2:hover,.anniu:hover{
   background-color:#ff7800;
@@ -627,6 +623,8 @@ template{
   font-size: 12px;
   position: absolute;
   top: 60px;
+  cursor: pointer;
+  transition: all 0.1s linear;
 }
 .tianjia{
   left:20px;
@@ -643,7 +641,7 @@ template{
   left: 120px;
 }
 .delete{
-  left: 220px;
+  left: 120px;
 }
 #beijing,#beijing2{
   width: 1090px;

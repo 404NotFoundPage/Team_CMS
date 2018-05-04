@@ -76,9 +76,13 @@
 
 </script>
 <style scoped>
+  *{
+    margin: 0;
+    padding: 0;
+  }
   #app {
     width: 100%;
-    height:660px;
+    height: 768px;
     overflow: hidden;
     background-image: url("../../assets/QQ图片20180423094507.jpg");
     background-size: cover;
@@ -90,9 +94,22 @@
   }
   .login-wrap {
     text-align: center;
+    background-color: rgba(255,255,255,.9);
+    margin: 0 auto;
+    margin-top: 180px;
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
   }
   h2{
-    margin-top: 240px;
+    height: 90px;
+    line-height: 90px;
+    background-color:rgb(66,66,66);
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-image: url("../../assets/QQ图片20180423094507.jpg");
+    background-size: cover;
   }
   input {
     display: block;
@@ -123,10 +140,15 @@
     line-height: 40px;
     margin: 0 auto;
     border: none;
-    background-color: #FFAD01;
+    background-color: rgba(147,201,105,1);
     color: #fff;
     font-size: 16px;
     margin-top: 40px;
+    -webkit-transition: all .3s;
+  }
+  button:hover{
+    background-color: rgba(5,139,190,.7);
+    color: black;
   }
   span {
     cursor: pointer;
