@@ -41,7 +41,7 @@ export default {
       })
       let _this=this;
       this.$axios.post('http://localhost:9999/user.do',postData).then(function (res) {
-        console.log(res.data.items)
+//        console.log(res.data.items)
           if(res.data){
             _this.reslist = res.data.items;
           }

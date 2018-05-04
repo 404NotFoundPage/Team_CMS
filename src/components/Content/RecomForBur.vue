@@ -189,7 +189,7 @@ export default{
 					_this.labelData[i].pro_id=res.data[i].pro_id
 					_this.labelData[i].pro_name=res.data[i].pro_name
 				}
-				console.log(_this.labelData)
+//				console.log(_this.labelData)
 			}).catch(function(err){
 				console.log(err)
 			})

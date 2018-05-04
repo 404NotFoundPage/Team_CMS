@@ -39,11 +39,15 @@
     line-height: 36px;
   }
   .cmsLeft_son>ul>li,
-  .cmsLeft_son>ul>li:nth-of-type(2)>div,
-  .cmsLeft_son>ul>li:nth-of-type(2)>ul,
-  .cmsLeft_son>ul>li:nth-of-type(2)>ul li{
+  .cmsLeft_son>ul>li:nth-of-type(3)>div,.cmsLeft_son>ul>li:nth-of-type(5)>div,
+  .cmsLeft_son>ul>li:nth-of-type(3)>ul,.cmsLeft_son>ul>li:nth-of-type(5)>ul,
+  .cmsLeft_son>ul>li:nth-of-type(3)>ul li,.cmsLeft_son>ul>li:nth-of-type(5)>ul li{
     background-color: #343f4b!important;
     width: 200px;
+  }
+  .cmsLeft_son>ul>li:nth-of-type(5)>ul li{
+    /*padding-left: 10px;*/
+    /*text-align: left;*/
   }
   .el-menu-item-group__title{
     padding: 0;
@@ -85,7 +89,7 @@
 }
 .frame{
   width: 1088px;
-  height: 86px;
+  height: 60px;
 }
 .Button{
   width: 90px;
@@ -96,8 +100,9 @@
   line-height: 34px;
   transition: all .2s linear;
   cursor:pointer;
-  margin: 26px 0 26px 0;
+  margin: 11px 0 15px 0;
   text-align: center;
+  font-size: 12px;
 }
 .Button:hover{
   background-color:#FF9000;
@@ -148,4 +153,8 @@
     background-color: #4f9acd;
     color: white;
   }
+  /*所有表格行高*/
+.el-table .cell{
+  line-height: 20px;
+}
 </style>

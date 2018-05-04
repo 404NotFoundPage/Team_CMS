@@ -12,8 +12,8 @@
         <section>
             <div class="section1">
               <!-- 搜索框 -->
-              <el-input placeholder="商品名称" v-model="proName" style="width:170px;margin-left:-660px;margin-top:5px;font-size: 12px;" clearable ></el-input>
-              <el-select v-model="proCondition" clearable placeholder="状态选择" style="margin-left:5px;width:170px;font-size: 12px;">
+              <el-input placeholder="商品名称" v-model="proName" style="width:170px;margin-left:-660px;margin-top:10px;font-size: 12px;" clearable ></el-input>
+              <el-select v-model="proCondition" clearable placeholder="状态选择" style="margin-left:10px;width:170px;font-size: 12px;">
                 <el-option label="生存" value="0"></el-option>
                 <el-option label="死亡" value="1"></el-option>
               </el-select>
@@ -27,10 +27,8 @@
             <div class="tianjia" @click="tankuang()">
              <i class="el-icon-circle-plus-outline" ></i> 添加
              </div>
-             <!-- 删除 -->
-             <div class="delete" @click="Delete()"><i class="el-icon-edit-outline" ></i>删除</div>
              <!-- 表格部分 -->
-            <el-table :data="list.items"  stripe border style="width:100%;margin-left:20px;font-size:14px;margin-top:50px" >
+            <el-table :data="list.items"  stripe border style="width:100%;margin-left:20px;font-size:14px;margin-top:55px" >
               <el-table-column  label="编号"  width="50" >
               <template slot-scope="scope">{{scope.row.pro_id}}</template>
               </el-table-column>
@@ -179,7 +177,7 @@
                    <el-input v-model="editData.pro_price"></el-input>
                    </el-form-item>
                 <el-form-item label="成交量">
-                   <el-input v-model="editData.pro_deal_amount"></el-input>
+                   <el-input v-model="editData.pro_deal_amount" :disabled="true"></el-input>
                    </el-form-item>
                 <el-form-item label="创建时间">
                   <el-col :span="21">
@@ -277,7 +275,8 @@ export default {
     },
     methods: {
       chakan(obj){   //查看
-        console.log(obj);
+//        console.log(obj.pro_id);
+        this.$emit('proM_pro_id',obj.pro_id)
       },
       reset(){  //重置搜索框
         this.proCondition='';
@@ -285,7 +284,7 @@ export default {
       },
       editproduct(index,row){//编辑
         this.isShow2=true;
-        console.log(row);
+//        console.log(row);
         this.editData=row;
 
       },
@@ -552,7 +551,7 @@ template{
   position: absolute;
   width:1090px ;
   height: 570px;
-  top:90px;
+  top:100px;
   left:230px;
   background-color:white;
 }
@@ -585,28 +584,28 @@ template{
 
 .anniu{
   width: 90px;
-  height: 34px;
+  height: 39px;
   background-color: #FF9600;
   color: white;
-  line-height: 35px;
+  line-height: 39px;
   border-radius: 3px;
   position: absolute;
-  top: 6px;
-  left: 375px;
+  top: 9px;
+  left: 385px;
   font-size: 12px;
   transition: all 0.1s linear;
   cursor: pointer;
 }
 .anniu2{
   width: 90px;
-  height: 34px;
+  height: 39px;
   background-color: #FF9600;
   color: white;
-  line-height: 35px;
+  line-height: 39px;
   border-radius: 3px;
   position: absolute;
-  top: 6px;
-  left: 470px;
+  top: 9px;
+  left: 490px;
   font-size: 12px;
   transition: all 0.1s linear;
   cursor: pointer;
@@ -622,7 +621,7 @@ template{
   line-height: 35px;
   font-size: 12px;
   position: absolute;
-  top: 60px;
+  top: 70px;
   cursor: pointer;
   transition: all 0.1s linear;
 }

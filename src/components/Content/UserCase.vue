@@ -1,8 +1,8 @@
 <template>
     <div class='newArrival'>
 		<div class='frame'>
-			<div style='margin-left: 20px;' @click="dialogFormVisibl = true;open2()" class='Button'><span class='tubiaoqian el-icon-circle-plus-outline'></span>添加</div>
-			<div style='margin-left: 10px;' @click="dialogFormVisible = true" class='Button'><span class='tubiaoqian el-icon-edit-outline'></span>编辑</div>
+			<div style='margin-left: 20px;margin-bottom: 15px;' @click="dialogFormVisibl = true;open2()" class='Button'><span class='tubiaoqian el-icon-circle-plus-outline'></span>添加</div>
+			<div style='margin-left: 10px;margin-bottom: 15px;' @click="dialogFormVisible = true" class='Button'><span class='tubiaoqian el-icon-edit-outline'></span>编辑</div>
 		</div>
 		<div class='kubox'>
 			用户案列

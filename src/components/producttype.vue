@@ -29,18 +29,9 @@
             <div class="tianjia" @click="tankuang()">
              <i class="el-icon-circle-plus-outline"></i> 添加
             </div>
-             <!-- 编辑按钮 -->
-             <div class="bianji"  @click="editproductType()">
-             <i class="el-icon-edit-outline"></i> 编辑
-             </div>
              <!-- 表格部分 -->
              <div id="tab">
              <el-table :data="list.items" stripe border style="width:100%;font-size:14px;margin-top:15px;">
-              <el-table-column  width="50px">
-                <template slot-scope="scope">
-                    <el-checkbox  @change="changeCheck(scope.$index, scope.row)"></el-checkbox>
-                </template>
-            </el-table-column>
               <el-table-column label="商品类型" >
               <template slot-scope="scope">{{scope.row.pro_type_name}}</template>
               </el-table-column>
@@ -53,11 +44,18 @@
               <el-table-column prop="state" label="生存状态" >
               <template slot-scope="scope">{{scope.row.pro_type_condition}}</template>
               </el-table-column>
-            <el-table-column label="操作" width="260px">
-            <template slot-scope="scope">
-                <el-button  size="mini" type="danger"  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-            </template>
-            </el-table-column>
+               <el-table-column
+                 label="操作"
+                 width="100">
+                 <template slot-scope="scope">
+                   <el-button @click="editproductType(scope.row)" type="text" size="small">编辑</el-button>
+                 </template>
+               </el-table-column>
+            <!--<el-table-column label="操作" width="260px">-->
+            <!--<template slot-scope="scope">-->
+                <!--<el-button  size="mini" type="danger"  @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
+            <!--</template>-->
+            <!--</el-table-column>-->
             </el-table>
              </div>
             <!-- 分页部分 -->
@@ -167,15 +165,6 @@ export default {
         this.getData()
     },
     methods: {
-        changeCheck(index,row){//判断复选框checkbox是否处于选中状态
-            if(this.checkboxchecked[index]==false){
-                this.checkboxchecked[index]=true;
-                this.currentRow=row;
-                this.currentRowIndex=index;
-            }else{
-                this.checkboxchecked[index]=false;
-            }
-        },
         gettotalNum:function(){
             let _this=this;
             this.$axios.post('http://localhost:9999/producttypenum.do')
@@ -208,7 +197,7 @@ export default {
             }
         },
         update(){//修改商品类型信息
-            let time=this.formatDate(this.currentRow.pro_type_addtime)
+            let time=this.formatDate(new Date(this.currentRow.pro_type_addtime))
             console.log(time)
             let _this=this;
             let postData=qs.stringify({
@@ -222,13 +211,12 @@ export default {
             .then(function(res){
                 console.log(res.data.flag)
                 if(res.data.flag==1){
+                  _this.isShow2=false;
                     _this.getData();
-                     _this.edit()
                     _this.alert('修改成功');
-
                 }else{
-                    _this.edit()
                     _this.alert('修改失败');
+                  _this.isShow2=false;
                 }
             }).catch(function(err){
                 console.log(err)
@@ -341,54 +329,17 @@ export default {
                 console.log(err)
             })
         },
-        editproductType:function(){//修改商品类型
-            var j=0;
-            for(var i=0;i<this.checkboxchecked.length;i++){
-                if(this.checkboxchecked[i]==true){
-                    j++;
-                }
-            }
-            if(j==0){
-                let str1="请选择需要编辑的数据"
-                this.alert(str1)
-            }else if(j==1){
-                this.edit()
-            }else if(j>1){
-                let str2="选择数据过多，请选择一条数据"
-                this.alert(str2)
-            }
+        editproductType:function(data){//修改商品类型
+          this.edit()
+          this.currentRow=data
         },
         alert:function(str) {
             let _this=this;
-            this.$alert(str, '提示', {
-                confirmButtonText: '确定',
-                callback: action => {
                 this.$message({
-                    type: 'info',
-                    message: `action: ${ action }`
+                    type: 'success',
+                    message: str
                 });
-                }
-            })
         },
-        confirm() {
-            let _this=this;
-            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-            center: true
-            }).then(() => {
-            this.$message({
-            type: 'success',
-            message:'删除成功！'
-            });
-            }).catch(() => {
-            this.$message({
-                type: 'info',
-                message:'取消删除！'
-            });
-            });
-        }
     }
 }
 
@@ -420,7 +371,6 @@ export default {
 }
 .spxq{
   height: 43px;
-
 }
 .spxq>h1{
   text-align: left;
@@ -429,6 +379,9 @@ export default {
   color: #0078A8;
   font-family: 'iconfont';
   padding-left:22px;
+}
+.spxq>h1>span{
+  margin-right: 5px;
 }
 .hx{
   width: 1090px;
@@ -479,9 +432,7 @@ export default {
   color: white;
   line-height: 35px;
   font-size: 12px;
-  position: absolute;
-  top: 60px;
-  left:20px;
+  margin-left: 20px;
 }
 .tianjia:hover{
   background-color:#FF9600;

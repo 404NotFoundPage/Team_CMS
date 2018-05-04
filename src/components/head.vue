@@ -4,11 +4,11 @@
       <div class="log">
         <ul>
           <li>
-            <a href="###">
+            <a  @click="tiaozhuan()">
               <img src="./../assets/logo.png">
             </a>
           </li>
-          <li>后台管理系统</li>
+          <li @click="tiaozhuan()">后台管理系统</li>
         </ul>
       </div>
       <div class="admin">
@@ -78,6 +78,9 @@
           center: true,
           type: 'success'
         });
+      },
+      tiaozhuan(){
+          this.$router.push('/index')
       }
     }
   }

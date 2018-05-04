@@ -212,7 +212,7 @@
       return {
         searchInput: '',
         total: 0,
-        pageshow: 5,
+        pageshow: 4,
         currentPage: 1,
         centerDialogVisible: false, //修改对话框
         dddialogdetails: false,//详情对话框
@@ -283,7 +283,7 @@
       //订单详情
       dddetails: function (index, data) {
         this.trIndex = index;
-        let xuhao = this.trIndex;
+        let xuhao = this.trIndex-1;
         xuhao = (this.currentPage - 1) * this.pageshow + this.trIndex;
 //        console.log(xuhao);
 //        console.log(data);
@@ -318,13 +318,13 @@
           console.log(err);
         })
       },
-      formatDate:function (date) { //日期转换 
+      formatDate:function (date) { //日期转换
             var y = date.getFullYear()
-            var m = date.getMonth() + 1;  
-            m = m < 10 ? '0' + m : m;  
-            var d = date.getDate();  
-            d = d < 10 ? ('0' + d) : d;  
-            return y + '-' + m + '-' + d;  
+            var m = date.getMonth() + 1;
+            m = m < 10 ? '0' + m : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            return y + '-' + m + '-' + d;
       },
       //修改订单
       ddatend: function (index, row) {
@@ -345,7 +345,7 @@
         let self = this;
         let fapiao;
         let fhzt;
-        let xuhao = self.trIndex;
+        let xuhao = self.trIndex-1;
         xuhao = (self.currentPage - 1) * self.pageshow + self.trIndex;
 //        console.log(xuhao);
         if (self.fapiaoxuanxiang == '不开发票' || self.fapiaoxuanxiang == 0) {
@@ -405,6 +405,7 @@
           let data = resData.data;
           //处理时间格式
           for (let i = 0, len = data.length; i < len; i++) {
+            data[i]["order_id"]=data[i]["order_id"]+1;
             let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
             data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
             //处理发票数据;
@@ -458,6 +459,7 @@
             self.total = Math.ceil(changdu / parseInt(self.pageshow)) * 10;
             //处理时间格式
             for (let i = 0, len = data.length; i < len; i++) {
+              data[i]["order_id"]=data[i]["order_id"]+1;
               let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
               data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
               //处理发票数据;
@@ -513,6 +515,7 @@
 //          console.log(resData.data);
           let data = resData.data;
           for (let i = 0, len = data.length; i < len; i++) {
+            data[i]["order_id"]=data[i]["order_id"]+1;
             //处理时间
             let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
             data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
@@ -562,6 +565,7 @@
         let data = resData.data;
 //        console.log(data);
         for (let i = 0, len = data.length; i < len; i++) {
+          data[i]["order_id"]=data[i]["order_id"]+1;
           //处理时间
           let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
           data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
@@ -610,6 +614,7 @@
   }
   .dddetailLeft{
     float: left;
+    margin-left: 20px;
   }
   .dddetailLeft,.dddetailRight{
     background-color: #ececec;
@@ -633,6 +638,7 @@
   }
   .dingdanguanli {
     position: relative;
+    padding-left: 20px;
     left: 30px;
     top: 30px;
     width: 1090px;
@@ -644,9 +650,10 @@
     color: #088ec3;
     font-weight: 700;
     border-bottom: 1px solid #ccc;
+    font-size: 16px;
     height: 45px;
     line-height: 45px;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
   }
 
   .ddhead span {
@@ -666,7 +673,9 @@
     height: 40px;
     padding: 20px;
   }
-
+  .funOption>div:nth-of-type(1),.funOption>div:nth-of-type(2),.funOption>div:nth-of-type(3),.funOption>div:nth-of-type(4){
+    margin-left: 20px;
+  }
   .el-input__inner {
     height: 36px;
     line-height: 36px;
@@ -759,7 +768,10 @@
   }
 
   .ddpagination {
-    margin-top: 30px;
+    position: fixed;
+    bottom: 20px;
+    left: 45%;
+
   }
 
   .atendcommon {
