@@ -128,7 +128,8 @@
 		  </div>
 		</el-dialog>
 		
-		
+		<div id='wodehsijie'>
+				
 		<el-pagination
 		  background
 		  layout="prev, pager, next"
@@ -137,6 +138,7 @@
 		  @current-change='handleCurrentChange'
 		  >
 		</el-pagination>
+		</div>
 	</div>
 </template>
 <script>
@@ -392,5 +394,10 @@ export default{
 		text-align: center;
 		line-height: 40px;
 		transition: all .2s linear;
+	}
+	#wodehsijie{
+		position: absolute;
+	    top:600px;
+	    left: 700px;
 	}
 </style>
