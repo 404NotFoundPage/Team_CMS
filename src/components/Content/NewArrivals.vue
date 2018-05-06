@@ -58,7 +58,7 @@
 		</el-dialog>
 
 		<!-- 添加 -->
-		<el-dialog title="收货地址" :visible.sync="xianshi">
+		<el-dialog title="新品添加" :visible.sync="xianshi">
 		  <el-form :model="form1">
 			<div class='divleft'>
 				<el-form-item label="商品名称" :label-width="formLabelWidth">

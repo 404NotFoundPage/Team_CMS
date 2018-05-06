@@ -283,8 +283,8 @@
       //订单详情
       dddetails: function (index, data) {
         this.trIndex = index;
-        let xuhao = this.trIndex-1;
-        xuhao = (this.currentPage - 1) * this.pageshow + this.trIndex;
+        let xuhao = this.trIndex;
+        xuhao = (this.currentPage - 1) * this.pageshow + this.trIndex+1;
 //        console.log(xuhao);
 //        console.log(data);
         this.dddialogdetails = true;
@@ -305,9 +305,6 @@
           }else{
             self.ddddzhungtai='未支付'
           }
-          //时间格式处理
-          // let str = data["order_time"].substring(0, data["order_time"].length - 5);
-          // data["order_time"] = str.split('T').toString().replace(/,/, ' ');
           self.ddxiadanshijian=self.formatDate(new Date(data['order_time']));
           console.log( self.ddxiadanshijian)
           self.ddspmingcheng = data['pro_name'];
@@ -345,7 +342,7 @@
         let self = this;
         let fapiao;
         let fhzt;
-        let xuhao = self.trIndex-1;
+        let xuhao = self.trIndex;
         xuhao = (self.currentPage - 1) * self.pageshow + self.trIndex;
 //        console.log(xuhao);
         if (self.fapiaoxuanxiang == '不开发票' || self.fapiaoxuanxiang == 0) {
@@ -405,7 +402,6 @@
           let data = resData.data;
           //处理时间格式
           for (let i = 0, len = data.length; i < len; i++) {
-            data[i]["order_id"]=data[i]["order_id"]+1;
             let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
             data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
             //处理发票数据;
@@ -448,18 +444,19 @@
         if (this.searchInput != '') {
           let self = this;
           self.loading = true;
-          let content = parseInt(this.searchInput)-1;
+          let content = parseInt(this.searchInput);
           let postData = qs.stringify({
             order_id: content
           })
+          console.log(content);
           this.$axios.post('/api/readOneOrder.do', postData).then(function (resData) {
             let data = resData.data;
+            console.log(data);
             //计算页数
             let changdu = parseInt(data.length);
             self.total = Math.ceil(changdu / parseInt(self.pageshow)) * 10;
             //处理时间格式
             for (let i = 0, len = data.length; i < len; i++) {
-              data[i]["order_id"]=data[i]["order_id"]+1;
               let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
               data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
               //处理发票数据;
@@ -467,15 +464,13 @@
                 data[i]["order_bill"] = '不开发票'
               } else {
                 data[i]["order_bill"] = '开具发票'
-              }
-              ;
+              };
               //处理支付状态数据;
               if (data[i]["order_pay"] == 0) {
                 data[i]["order_pay"] = '未付款'
               } else {
                 data[i]["order_pay"] = '已付款'
-              }
-              ;
+              };
               //处理发货状态;
               if (data[i]["order_status"] == 0) {
                 data[i]["order_status"] = '未发货'
@@ -515,7 +510,6 @@
 //          console.log(resData.data);
           let data = resData.data;
           for (let i = 0, len = data.length; i < len; i++) {
-            data[i]["order_id"]=data[i]["order_id"]+1;
             //处理时间
             let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
             data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
@@ -565,7 +559,6 @@
         let data = resData.data;
 //        console.log(data);
         for (let i = 0, len = data.length; i < len; i++) {
-          data[i]["order_id"]=data[i]["order_id"]+1;
           //处理时间
           let str = data[i]["order_time"].substring(0, data[i]["order_time"].length - 5);
           data[i]["order_time"] = str.split('T').toString().replace(/,/, ' ');
