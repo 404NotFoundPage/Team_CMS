@@ -233,10 +233,8 @@ export default{
 		})
 	 },
 	 qingqiu:function(){
-
-		console.log(this.form1)
-
-		let shijian=this.form1.value1
+		if(this.form1.tjtp&&this.form1.value1&&this.form1.name&&this.form1.spgg){
+			let shijian=this.form1.value1
 		  shijian=shijian.getFullYear()+"-"+ (shijian.getMonth()+1)+"-"+shijian.getDate()
 		  console.log(shijian)
 		let postdata=qs.stringify({
@@ -247,7 +245,9 @@ export default{
 		 pro_discount: this.form1.spzk,
 		 pro_size:this.form1.spgg,
 		 pro_storetime:shijian,
-		 pro_id:""
+		 pro_id:"",
+		 pro_img_url:this.form1.tjtp,
+		 
 		})
 		console.log(postdata)
 		this.$axios.post("http://localhost:9999/addProduct.do",postdata).then(function(res){
@@ -255,8 +255,11 @@ export default{
 		}).catch(function(err){
 			console.log(err)
 		})
-
-
+		
+		}else{
+			this.xianshi=true
+			this.openbox("请输入必填字段")
+		}
 	 },
 	 handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -277,6 +280,12 @@ export default{
 				xmlHttp.onreadystatechange=function(){
 					if(xmlHttp.readyState==4&&xmlHttp.status==200){
 					  _this.form1.tjtp=xmlHttp.responseText
+					  console.log(_this.form1.tjtp)
+					  if(xmlHttp.responseText){
+						_this.openbox("上传成功")
+					  }else{
+						_this.openbox("上传失败")
+					  }
 					}
 				}
 				xmlHttp.open("post","http://localhost:9999/upload.do");
@@ -285,8 +294,13 @@ export default{
 					var formData = new FormData(form);
 					xmlHttp.send(formData);
 		console.log("123")
-	   }
-
+	   },
+	   openbox(text) {
+        this.$message({
+          message: text,
+          type: 'success'
+        });
+      }
 	}
 }
 </script>

@@ -24,7 +24,7 @@
             <!-- 第二个线条 -->
             <div class="hx2"></div>
             <!-- 添加按钮 -->
-            <div class="tianjia" @click="tankuang()">
+            <div class="tianjia" @click="xianshi=true">
              <i class="el-icon-circle-plus-outline" ></i> 添加
              </div>
              <!-- 表格部分 -->
@@ -82,80 +82,81 @@
           </div>
         </section>
         <!-- 添加按钮部分 -->
-      <div id="beijing" v-show="isShow">
-        <div id="tjbd">
-          <!-- :rules="rules" ref="ruleForm"  -->
-          <!-- :model="" -->
-          <el-form :inline="true" :model="addData" label-width="100px">
-                <div style=" margin-top: 20px;">添加商品</div>
-                <el-form-item label="商品名称" style=" margin-top: 20px;">
-                  <el-input v-model="addData.pro_name"></el-input>
-                </el-form-item>
-                <el-form-item label="商品规格" style=" margin-top: 20px;">
-                  <el-input v-model="addData.pro_size"></el-input>
-                </el-form-item>
-                <el-form-item label="供货量" >
-                  <el-input v-model="addData.pro_amount"></el-input>
-                </el-form-item>
-                 <el-form-item label="折扣"  >
-                   <el-input v-model="addData.pro_discount"></el-input>
-                   </el-form-item>
-                <el-form-item label="成本价格"  >
-                   <el-input v-model="addData.pro_price" style="width:202px;margin-left:10px;"></el-input>
-                   </el-form-item>
-                <el-form-item label="创建时间">
-                  <el-col :span="21">
-                    <el-form-item>
-                      <el-date-picker type="date"  v-model="addData.pro_storetime" placeholder="选择日期" style="width:202px;"></el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="爆款状态" >
-                  <el-select placeholder="请选择" v-model="addData.pro_bao" style="width:90px;">
-                    <el-option label="是" value="1"></el-option>
-                    <el-option label="否" value="0"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="新旧状态">
-                  <el-select  placeholder="请选择"  v-model="addData.pro_new" style="width:90px;">
-                    <el-option label="新款" value="1"></el-option>
-                    <el-option label="旧款" value="0"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="商品状态">
-                  <el-select placeholder="请选择"  v-model="addData.pro_condition"  style="width:100px;">
-                    <el-option label="生存" value="0"></el-option>
-                    <el-option label="死亡" value="1"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="添加图片" required style=" margin-left:18px;">
-                  <el-col :span="21">
-                    <el-form-item v-model="addData.pro_img_url">
-                      <td class="">
-                        <!-- action="https://jsonplaceholder.typicode.com/posts/" -->
-                        <el-upload
-                          action="https://jsonplaceholder.typicode.com/posts/"
-                          list-type="picture-card"
-                          :on-preview="handlePictureCardPreview"
-                          :on-remove="handleRemove"
-                          :on-change="changeFile">
-                          <i class="el-icon-plus"></i>
-                        </el-upload>
-                        <el-dialog :visible.sync="dialogVisible">
-                          <img width="100%" :src="dialogImageUrl" alt="">
-                        </el-dialog>
-                      </td>
-                    </el-form-item>
-                  </el-col>
-                </el-form-item>
-                <br>
-                 <el-form-item>
-                    <el-button type="primary" @click="addproduct()">创建</el-button>
-                    <el-button @click="tankuang()">取消</el-button>
-                  </el-form-item>
-              </el-form>
-        </div>
-        </div>
+      
+	  <el-dialog title="新品添加" :visible.sync="xianshi">
+		  <el-form :model="form1">
+			<div class='divleft'>
+				<el-form-item label="商品名称" :label-width="formLabelWidth">
+				  <el-input v-model="form1.name" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="供  货  量" :label-width="formLabelWidth">
+				  <el-input v-model="form1.gonghuoliang" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="成本价格" :label-width="formLabelWidth">
+				  <el-input v-model="form1.jiage" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="爆款状态" :label-width="formLabelWidth">
+				 <el-select v-model="form1.bkzt" placeholder="请选择是，否">
+					<el-option label="是" value="0"></el-option>
+					<el-option label="否" value="1"></el-option>
+				  </el-select>
+				</el-form-item>
+				<el-form-item label="商品状态" :label-width="formLabelWidth">
+				  <el-select v-model="form1.spzt" placeholder="请选择生存，死亡">
+					<el-option label="生存" value="0"></el-option>
+					<el-option label="死亡" value="1"></el-option>
+				  </el-select>
+				</el-form-item>
+			</div>
+			<div class='divleft'>
+				<el-form-item label="商品规格" :label-width="formLabelWidth">
+				  <el-input v-model="form1.spgg" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="折     扣" :label-width="formLabelWidth">
+				  <el-input v-model="form1.spzk" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="创建时间" :label-width="formLabelWidth">
+				  <el-date-picker
+					  v-model="form1.value1"
+					  type="date"
+					  placeholder="选择日期">
+				  </el-date-picker>
+				</el-form-item>
+				<el-form-item label="新旧状态" :label-width="formLabelWidth">
+				  <el-select v-model="form1.xjzt" placeholder="请选择新，旧">
+					<el-option label="新" value="0"></el-option>
+					<el-option label="旧" value="1"></el-option>
+				  </el-select>
+				</el-form-item>
+				<el-form-item label="商品类型" :label-width="formLabelWidth">
+				  <el-select v-model="form1.splx" placeholder="请选择商品类型">
+					<el-option label="花瓶" value="1"></el-option>
+					<el-option label="茶器" value="2"></el-option>
+					<el-option label="艺品" value="3"></el-option>
+				  </el-select>
+				</el-form-item>
+			</div>
+			<div class='divdic'>
+				<form action="" id='form1' enctype="multipart/form-data" method="post">
+				   <span class='uploadspan'>添加图片</span>
+					<span class='wocalie'>
+						<span class='ffffffff'>添加</span>
+						<input class='uploaddata' type="file" name="txtFile" multiple="multiple"/>
+					</span>
+					<button  type='button' @click='formdata'  class='uploadbutton'>上传</button>
+				</form>
+			</div>
+		  </el-form>
+		  <div slot="footer" class="dialog-footer">
+			<el-button type="primary" @click="xianshi = false;qingqiu()">创建</el-button>
+			<el-button @click="xianshi = false">取 消</el-button>
+		  </div>
+		</el-dialog>
+	  
+	  
+	  
+	  
+        
     <!-- 编辑按钮部分 -->
       <div id="beijing2" v-show="isShow2">
         <div id="tjbd2">
@@ -265,6 +266,24 @@ export default {
         pro_info:"",       //商品描述
         pro_condition:""   //商品状态
       },
+	  //添加商品部分 
+		xianshi: false,
+	    dialogVisible: false,
+		formLabelWidth: '120px',
+		form1:{
+			name:"",  //商品名称
+			spgg:"",  //商品规格
+			gonghuoliang:"",  //供货量
+			spzk:"",// 商品折扣
+			jiage:"",// 价格
+			value1:"", //创建时间
+			bkzt:"", //爆款状态
+			xjzt:"", //新旧状态
+			spzt:"", //商品状态
+			tjtp:"", //添加图片
+			splx:"" // 商品类型
+		},
+			//结束
       addtime:[],
       };
     },
@@ -515,6 +534,68 @@ export default {
           console.log(This.imageUrl )
           // console.log(This.dialogImageUrl)
         }
+      },
+	  formdata(){
+				let _this=this
+				 var xmlHttp;
+				if(window.XMLHttpRequest){ //DOM
+					xmlHttp = new XMLHttpRequest();
+				}else if(window.ActiveXObject){ //IE
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+				xmlHttp.onreadystatechange=function(){
+					if(xmlHttp.readyState==4&&xmlHttp.status==200){
+					  _this.form1.tjtp=xmlHttp.responseText
+					  if(xmlHttp.responseText){
+						_this.openbox("上传成功")
+					  }else{
+						_this.openbox("上传失败")
+					  }
+					}
+				}
+				xmlHttp.open("post","http://localhost:9999/upload.do");
+				//如果是post ，需要设置表头的编码
+					var form = document.getElementById("form1");
+					var formData = new FormData(form);
+					xmlHttp.send(formData);
+		console.log("123")
+	   },
+	   qingqiu:function(){
+		if(this.form1.tjtp&&this.form1.value1&&this.form1.name&&this.form1.spgg){
+			let shijian=this.form1.value1
+		  shijian=shijian.getFullYear()+"-"+ (shijian.getMonth()+1)+"-"+shijian.getDate()
+		  console.log(shijian)
+		let postdata=qs.stringify({
+		 pro_type_id:this.form1.splx,
+		 pro_name:this.form1.name,
+		 pro_amount:this.form1.gonghuoliang,
+		 pro_price: this.form1.jiage,
+		 pro_discount: this.form1.spzk,
+		 pro_size:this.form1.spgg,
+		 pro_storetime:shijian,
+		 pro_id:"",
+		 pro_img_url:this.form1.tjtp,
+		 
+		})
+		console.log(postdata)
+		this.$axios.post("http://localhost:9999/addProduct.do",postdata).then(function(res){
+			console.log(res.data)
+		}).catch(function(err){
+			console.log(err)
+		})
+		
+		}else{
+			this.xianshi=true
+			this.openbox("请输入必填字段")
+		}
+
+	 },
+	 openbox(text) {
+        this.$message({
+          message: text,
+          type: 'success'
+        });
       }
     }
 }
@@ -667,4 +748,57 @@ template{
   top:490px;
   width: 100%;
 }
+.divleft{
+		float: left;
+		width: 300px;
+	}
+	.divdic{
+		clear: both;
+		text-align: left;
+	}
+	.uploadspan{
+		padding-left: 50px;
+		padding-right: 10px;
+	}
+
+	.uploadbutton{
+		border: none;
+		outline: none;
+		border-radius: 5px;
+		cursor: pointer;
+		background-color: #409EFF;
+		width: 70px;
+		height: 40px;
+		color: white;
+		transition: all .2s linear;
+		margin-left: 200px;
+	}
+	.uploadbutton:hover{
+		background-color: #66b1ff;
+	}
+	.wocalie{
+		position: relative;
+	}
+	.uploaddata{
+		position: absolute;
+		top:0;
+		width: 70px;
+		height: 40px;
+		left:0;
+		opacity:0;
+	}
+	.ffffffff{
+		position: absolute;
+		border: none;
+		outline: none;
+		border-radius: 5px;
+		cursor: pointer;
+		background-color: #409EFF;
+		width: 70px;
+		height: 40px;
+		color: white;
+		text-align: center;
+		line-height: 40px;
+		transition: all .2s linear;
+	}
 </style>
