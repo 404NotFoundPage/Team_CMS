@@ -127,6 +127,16 @@
 			<el-button @click="xianshi = false">取 消</el-button>
 		  </div>
 		</el-dialog>
+		
+		
+		<el-pagination
+		  background
+		  layout="prev, pager, next"
+		  :total="tiaoshu.yeshu"
+		  :page-size="6"
+		  @current-change='handleCurrentChange'
+		  >
+		</el-pagination>
 	</div>
 </template>
 <script>
@@ -137,6 +147,7 @@ export default{
     data: function () {
         return {
 			tableData: [],
+			size:1,
 			dialogFormVisible: false,
 			form: {
 			  name: '',
@@ -147,6 +158,7 @@ export default{
 			  resource: '',
 			  desc: ''
 			},
+			tiaoshu:{},
 			formLabelWidth: '120px',
 			Obtainshop:[],
 
@@ -169,8 +181,10 @@ export default{
 		}
     },
 	beforeMount: function () {
+		this.getdataout()
 		this.gatData()
 		this.getData1()
+		
 	},
 	methods: {
       open3() {//获取id 等等
@@ -185,7 +199,10 @@ export default{
 	  gatData:function(){
 		 var _this=this;
 		 _this.tableData=[]
-		 this.$axios.post("http://localhost:9999/NewProduct.do").then(function(res){
+		let canshu=qs.stringify({
+			size:this.size
+		})
+		 this.$axios.post("http://localhost:9999/NewProduct.do",canshu).then(function(res){
 			for(var i=0;i<res.data.length;i++){
 				_this.tableData.push({
 				date:"",
@@ -195,6 +212,7 @@ export default{
 				_this.tableData[i].address=res.data[i].pro_name
 				console.log(_this.tableData[i])
 			   }
+			   
 		 }).catch(function(err){
 			console.log(err)
 		 })
@@ -300,7 +318,21 @@ export default{
           message: text,
           type: 'success'
         });
-      }
+      },
+	  handleCurrentChange(val){
+		this.size=val
+		this.gatData()
+	  },
+	  getdataout(){
+		let _this=this
+		
+		_this.$axios.post("http://localhost:9999/zhnagsan.do").then(function(res){
+			_this.tiaoshu.yeshu=res.data[0].xx
+		}).catch(function(err){
+			console.log(err)
+		})
+	  },
+		
 	}
 }
 </script>
