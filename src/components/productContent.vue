@@ -74,13 +74,14 @@
         <div class="comment_bt">用户评论</div>
         <div class="comment_contentAll">
           <!-- 评论1 -->
-          <div v-for="(proC,key,index) in proComments" :key="proC.com_id">
+          <div v-for="(proC,index) in proComments" :key="proC.com_id">
+      
             <div class="com_content1">
               <div class="content_pl">
                 <!-- <img :src="'http://localhost:9099/static/'+proC.user_pic" width="80" height="76" alt=""> -->
                 <img :src="'../../static/'+proC.user_pic" width="80" height="76" alt="">
                 <div class="content_pl_right">
-                  <h1>{{proC.user_name}}</h1>
+                  <h1>{{proC.user_name | readMore(7,'...')}}</h1>
                   <p>{{proC.com_message_date}}</p>
                   <p class="text">{{proC.com_message_count}}</p>
                 </div>
@@ -104,10 +105,12 @@
                     type="textarea"
                     :autosize="{ minRows: 2, maxRows: 4}"
                     placeholder="请输入内容"
-                    v-model="textarea3">
+                    v-model="textarea3" :ref="'textarea_x'+proC.com_id">
                   </el-input>
+                   
+           
                   <div class="button">
-                    <button class="button_submit">提交</button>
+                    <button class="button_submit" @click="buttonTijiao(proC.pro_id,proC.com_id)">提交</button>
                   </div>
                 </div>
               </div>
@@ -137,16 +140,48 @@
       }
     },
     props: ['pro_id'],
+    filters:{
+      readMore:function(text,length,suffix){
+        if(text.length>7){
+          return text.substring(0,length)+suffix
+        }else{
+          return text
+        }
+      }
+    },
     methods: {
+      //提交评论s
+      buttonTijiao:function(pro_id,proCid){
+         var tar = "textarea_x" + proCid;  //拼接当前输入框ref
+         var content=this.$refs[tar][0].value;    //获取输入框内容  
+         //alert(pro_id+"-"+proCid+"="+this.$refs[tar][0].value) 
+         let postdata = qs.stringify({content2: content,com_id:proCid}); 
+         var delmsg="提交成功"; 
+         console.log("----------------------");
+         this.$axios.post('/api/submitComments.do', postdata).then(function (resDatac) {
+            console.log("A")
+            console.log(resDatac.data)
+            delmsg = "提交成功";
+          }).catch(function (err) {
+            console.log("B")
+            console.log(err)
+            delmsg = "提交失败";
+          });
+          this.$message({
+            type: 'success',
+            message: delmsg
+          });
+          this.getpldata();
+      },
+
       //请求数据
       clicBtn_hf: function (w) {//点击回复弹出回复框
-        var tar = "reply_" + w;
-        console.log(tar)
-        console.log(this.$refs);
+        var tar = "reply_" + w;         
+        //console.log(tar)
+        //console.log(this.$refs);
         this.$refs[tar][0].hidden = !this.$refs[tar][0].hidden;
       },
       delete_pl: function (com_id) {//删除评论
-
         //console.log(this)
         this.$confirm('此操作将删除该评论, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -167,6 +202,7 @@
             type: 'success',
             message: delmsg
           });
+           
           this.getpldata();
         }).catch(() => {
           this.$message({
@@ -183,8 +219,9 @@
         d = d < 10 ? ('0' + d) : d;
         return y + '-' + m + '-' + d;
       },
-      getpldata: function () {//获取商品详细参数和评论数据
-        var _this = this;
+      getpldata: function () {//获取商品详细参数和评论数据        
+        var _this = this; 
+        _this.proComments =[];
         let pro_id = _this.pro_id;
         console.log(pro_id);
         let postdata = qs.stringify({pro_id: pro_id});
@@ -247,7 +284,7 @@
   .conttent_bk {
     background-color: #fff;
     width: 1106px;
-    height: 530px;
+    height: 560px;
   }
 
   .header .bt {
@@ -401,6 +438,7 @@
     width: 240px;
     float: left;
     padding: 0px 0 0 10px;
+    text-align: left;
   }
 
   .content_pl_right h1 {
